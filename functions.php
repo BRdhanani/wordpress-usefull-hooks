@@ -173,3 +173,22 @@ function wp_html_compression_start() {
     ob_start('wp_html_compression_finish');
 }
 add_action('get_header', 'wp_html_compression_start');
+
+/******************************************************************
+This function runs when WordPress completes its upgrade process
+It iterates through each plugin updated to see if ours is included
+*******************************************************************/
+function wp_upe_upgrade_completed( $upgrader_object, $options ) {
+ // The path to our plugin's main file
+ $our_plugin = plugin_basename( __FILE__ );
+ // If an update has taken place and the updated type is plugins and the plugins element exists
+ if( $options['action'] == 'update' && $options['type'] == 'plugin' && isset( $options['plugins'] ) ) {
+  // Iterate through the plugins being updated and check if ours is there
+  foreach( $options['plugins'] as $plugin ) {
+   if( $plugin == $our_plugin ) {
+    // Your action if it is your plugin
+   }
+  }
+ }
+}
+add_action( 'upgrader_process_complete', 'wp_upe_upgrade_completed', 10, 2 );
