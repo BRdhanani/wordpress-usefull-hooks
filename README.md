@@ -1,1 +1,1 @@
-# wordpress-usefull-hooks
+# wordpress usefull hooks
